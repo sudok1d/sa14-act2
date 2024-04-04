@@ -1,0 +1,18 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container{
+    margin: auto;
+    text-align: center;
+}
+
+#forecastInfo {
+    overflow-x: auto;
+    white-space: nowrap; 
+    display: flex; 
+}
+
+#forecastInfo > div {
+    margin-right: 10px; 
+}
