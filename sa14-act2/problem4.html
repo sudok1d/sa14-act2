@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Registration</title>
+    </head>
+    <body>
+       <h2>User Registration</h2> 
+       <form id="regiForm" onsubmit="return ValidateForm()">
+        Username: <input type="text" id="username">
+        Email: <input type="text" id="email">
+        Password: <input type="text" id="password">
+        <input type="submit" value="Submit">
+       </form>
+       <script>
+        function ValidateForm() {
+            let userName = document.forms["regiForm"]["username"].value;
+            if (userName.length < 6){
+                alert("Username must be 6 characters long");
+                return false;
+            }
+            
+            let eMail = document.forms["regiForm"]["email"].value;
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!eMail.match(re)){
+                alert("Please enter a valid email");
+                return false;
+            }
+
+            let passWord = document.forms["regiForm"]["password"].value;
+            var cap = /[A-Z]/ 
+            var num = /[0-9]/
+            if (!(cap.test(passWord)) || !(num.test(passWord)) || passWord.length < 8){
+                alert("Please enter a password that is at least 8 characters long with at least one capital letter, one number")
+                return false;
+            }
+        }
+       </script>
+    </body>
+</html>
