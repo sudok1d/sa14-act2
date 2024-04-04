@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo List</title>
+    </head>
+    <body>
+        <div class="todoContainer">
+            <h1>Todo List</h1>
+            <form id="todoForm">
+                <input type="text" id="todoTitle" placeholder="Enter title" required>
+                <input type="text" id="todoDetails" placeholder="Enter details">
+                <button type="submit">Add Task</button>
+                <ul id="todoList"></ul>
+            </form>
+        </div>
+        <script>
+            const todoForm = document.getElementById('todoForm');
+            const todoTitleInput = document.getElementById('todoTitle');
+            const todoDetailsInput = document.getElementById('todoDetails');
+            const todoList = document.getElementById('todoList'); 
+
+            let tasks = [];
+
+            todoForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const title = todoTitleInput.value.trim();
+                const details = todoDetailsInput.value.trim();
+
+                if (title) {
+                    addTask(title, details);
+                    todoTitleInput.value = '';
+                    todoDetailsInput.value = '';
+                }
+            });
+            
+            function addTask(title, details) {
+                const task = {
+                    id: Date.now(),
+                    title: title,
+                    details: details
+                };
+
+                tasks.push(task);
+                renderTasks();
+            }
+
+            function renderTasks() {
+                todoList.innerHTML = '';
+                tasks.forEach(task => {
+                    const li = document.createElement('li');
+                    li.className = 'todo-item';
+                    li.innerHTML = `
+                        <span>${task.title}</span>
+                        <button onclick="editTask(${task.id})">Edit</button>
+                        <button onclick="deleteTask(${task.id})">Delete</button>
+                    `;
+                    todoList.appendChild(li);
+                });
+            }
+
+            function editTask(id) {
+                const taskToEdit = tasks.find(task => task.id === id);
+                const newTitle = prompt('Enter new title:', taskToEdit.title);
+                if (newTitle !== null) {
+                    taskToEdit.title = newTitle;
+                    renderTasks();
+                }
+            }
+
+            function deleteTask(id) {
+                tasks = tasks.filter(task => task.id !== id);
+                renderTasks();
+            }
+            renderTasks();
+
+        </script>
+    </body>
+</html>
