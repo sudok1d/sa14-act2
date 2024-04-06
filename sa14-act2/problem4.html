@@ -13,17 +13,19 @@
        </form>
        <script>
         function ValidateForm() {
+            let isValid = true
             let userName = document.forms["regiForm"]["username"].value;
             if (userName.length < 6){
                 alert("Username must be 6 characters long");
-                return false;
+                isValid = false;
+
             }
             
             let eMail = document.forms["regiForm"]["email"].value;
             var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!eMail.match(re)){
                 alert("Please enter a valid email");
-                return false;
+                isValid = false;
             }
 
             let passWord = document.forms["regiForm"]["password"].value;
@@ -31,7 +33,12 @@
             var num = /[0-9]/
             if (!(cap.test(passWord)) || !(num.test(passWord)) || passWord.length < 8){
                 alert("Please enter a password that is at least 8 characters long with at least one capital letter, one number")
-                return false;
+                isValid = false;
+            }
+
+            if (isValid){
+                alert("Registration successful!")
+                form.reset()
             }
         }
        </script>
